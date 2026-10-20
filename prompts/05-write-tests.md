@@ -15,6 +15,12 @@ Write:
   billing date in 2024–2028 and k = 1..24, billing date k falls on the
   first date's day of month, or on the last day of a shorter month.
 
+Keep the mapping one to one. Each item above is exactly one test method
+(a parameterized method counts as one, with one case per row or cell).
+Do not split a rule into extra tests, and do not write any test that is
+not on this list, even if it seems useful. If SPEC.md leaves something
+untested, report it in the list at the end instead of inventing a test.
+
 Put date and status rules in plain JUnit tests against a BillingCalendar
 class (no Spring). Put status codes and error shape in @WebMvcTest
 tests. Put idempotency, isolation and concurrency in @SpringBootTest
