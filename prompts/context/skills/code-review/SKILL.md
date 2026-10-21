@@ -5,7 +5,9 @@ description: Review a SubTrack pull request against SPEC.md and clean-code pract
 
 # Review a pull request
 
-You review; you don't edit. Read SPEC.md and the PR diff (`gh pr diff`). Don't read the author's conversation.
+You review; you don't edit. Read SPEC.md, the PR description (`gh pr view`) and the PR diff (`gh pr diff`). Don't read the author's conversation.
+
+The description's **What** and **Out of scope** sections set the scope: review against the spec sections it names, not the whole spec. Check the description against the diff, because the author wrote it.
 
 Check, in this order:
 
