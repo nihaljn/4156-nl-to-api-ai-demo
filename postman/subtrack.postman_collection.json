@@ -4,8 +4,14 @@
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
-    { "key": "baseUrl", "value": "http://localhost:8080" },
-    { "key": "clientKey", "value": "postman-client" }
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "clientKey",
+      "value": "postman-client"
+    }
   ],
   "item": [
     {
@@ -13,8 +19,14 @@
       "request": {
         "method": "POST",
         "header": [
-          { "key": "X-Client-Key", "value": "{{clientKey}}" },
-          { "key": "Content-Type", "value": "application/json" }
+          {
+            "key": "X-Client-Key",
+            "value": "{{clientKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
         ],
         "url": "{{baseUrl}}/plans",
         "body": {
@@ -38,6 +50,46 @@
               "  pm.expect(plan.trialDays).to.eql(7);",
               "});",
               "pm.collectionVariables.set('planId', plan.planId);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "5.2 POST /subscriptions",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Client-Key",
+            "value": "{{clientKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/subscriptions",
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"planId\": \"{{planId}}\", \"customerId\": \"cus_{{$timestamp}}\", \"startDate\": \"2026-01-24\" }"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('201 Created', () => pm.response.to.have.status(201));",
+              "const sub = pm.response.json();",
+              "pm.test('view has generated id and first billing date', () => {",
+              "  pm.expect(sub.subscriptionId).to.match(/^sub_[a-z0-9]{10}$/);",
+              "  pm.expect(sub.planId).to.eql(pm.collectionVariables.get('planId'));",
+              "  pm.expect(sub.startDate).to.eql('2026-01-24');",
+              "  pm.expect(sub.firstBillingOn).to.eql('2026-01-31');",
+              "  pm.expect(sub.endsOn).to.eql(null);",
+              "});"
             ]
           }
         }
