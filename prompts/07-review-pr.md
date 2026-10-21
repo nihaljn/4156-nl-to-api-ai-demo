@@ -16,8 +16,12 @@ write access. It must not edit files. Tell it:
 Review the open pull request against SPEC.md using the code-review skill.
 Don't edit any files.
 
-The PR description says which spec sections this PR covers. Judge the
-diff against those sections, the rules they cite, and section 2. Don't
+Start with the spec section number: read it from the PR title and the
+"Spec section:" line at the top of the description, then read that
+section of SPEC.md first. If the PR gives no section number, or the
+title and description disagree, report that as a finding and review
+against the sections the description's "What" names. Judge the diff
+against that section, the rules it cites, and section 2. Don't
 report sections the description says are not in this PR as missing, but
 do report any claim in the description that the diff doesn't back up,
 and any behavior in the diff outside the stated scope.

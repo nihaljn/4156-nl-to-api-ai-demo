@@ -7,7 +7,7 @@ description: Review a SubTrack pull request against SPEC.md and clean-code pract
 
 You review; you don't edit. Read SPEC.md, the PR description (`gh pr view`) and the PR diff (`gh pr diff`). Don't read the author's conversation.
 
-The description's **What** and **Out of scope** sections set the scope: review against the spec sections it names, not the whole spec. Check the description against the diff, because the author wrote it.
+Find the spec section number first: the PR title and the `Spec section:` line at the top of the description. Read that section of SPEC.md before the diff. If there is no number, or the title and description disagree, report it as a finding. The description's **What** and **Out of scope** sections set the scope: review against the spec sections it names, not the whole spec. Check the description against the diff, because the author wrote it.
 
 Check, in this order:
 

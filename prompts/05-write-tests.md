@@ -28,10 +28,7 @@ implementation will create under edu.columbia.subtrack: domain.BillingCalendar
 service.SubscriptionService, service.BillingDatesService, and
 api.ApiException(code, message, field).
 
-Put date and status rules in plain JUnit tests against a BillingCalendar
-class (no Spring). Put status codes and error shape in @WebMvcTest
-tests. Put idempotency, isolation and concurrency in @SpringBootTest
-tests. Every test uses a test Clock fixed at 2026-03-05 that tests can
+Every test uses a test Clock fixed at 2026-03-05 that tests can
 advance.
 
 Name each test after the rule it checks, for example

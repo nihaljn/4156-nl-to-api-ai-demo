@@ -19,7 +19,10 @@ endpoints, and don't touch pom.xml or config/.
 
 When this section's tests pass and nothing else fails except tests for
 later sections, use the make-pr skill: branch from main, commit in small
-steps, and open a pull request. Treat that as the verify gate for the PR,
+steps, and open a pull request. Start the PR title with the section
+number (for example "5.1: POST /plans") and make the first line of the
+description "Spec section: 5.1", so the reviewer knows which section of
+SPEC.md to judge it against. Treat that as the verify gate for the PR,
 and list the later-section failures in its description. Don't merge it
 and don't push to main.
 
