@@ -6,7 +6,6 @@ import edu.columbia.subtrack.api.ErrorCode;
 import edu.columbia.subtrack.domain.BillingCalendar.Interval;
 import edu.columbia.subtrack.domain.Plan;
 import edu.columbia.subtrack.service.IdempotencyStore.StoredResponse;
-import java.security.SecureRandom;
 import java.util.Currency;
 import java.util.regex.Pattern;
 import org.springframework.stereotype.Service;
@@ -18,24 +17,24 @@ public class PlanService {
     private static final int MAX_NAME_LENGTH = 100;
     private static final long MAX_PRICE_CENTS = 10_000_000L;
     private static final int MAX_TRIAL_DAYS = 30;
-    private static final int ID_SUFFIX_LENGTH = 10;
-    private static final String ID_ALPHABET = "abcdefghijklmnopqrstuvwxyz0123456789";
     private static final Pattern CURRENCY_FORMAT = Pattern.compile("[A-Z]{3}");
     private static final int CREATED = 201;
 
-    private final SecureRandom random = new SecureRandom();
     private final PlanRepository plans;
     private final IdempotencyStore idempotency;
+    private final IdGenerator ids;
 
     /**
      * Creates the service.
      *
      * @param plans where plans are stored
      * @param idempotency replays repeated requests
+     * @param ids generates plan IDs
      */
-    public PlanService(final PlanRepository plans, final IdempotencyStore idempotency) {
+    public PlanService(final PlanRepository plans, final IdempotencyStore idempotency, final IdGenerator ids) {
         this.plans = plans;
         this.idempotency = idempotency;
+        this.ids = ids;
     }
 
     /**
@@ -50,7 +49,7 @@ public class PlanService {
     public StoredResponse create(final String clientKey, final String idempotencyKey, final JsonNode body) {
         final Plan draft = validate(body);
         return idempotency.execute(clientKey, idempotencyKey, body, () -> {
-            final Plan plan = new Plan(newId(), draft.name(), draft.priceCents(), draft.currency(),
+            final Plan plan = new Plan(ids.newId("pln_"), draft.name(), draft.priceCents(), draft.currency(),
                 draft.interval(), draft.trialDays());
             if (!plans.addIfNameFree(clientKey, plan)) {
                 throw new ApiException(ErrorCode.PLAN_NAME_TAKEN, "A plan named '" + plan.name()
@@ -111,13 +110,5 @@ public class PlanService {
 
     private static ApiException invalid(final String field, final String message) {
         return new ApiException(ErrorCode.VALIDATION_ERROR, message, field);
-    }
-
-    private String newId() {
-        final StringBuilder id = new StringBuilder("pln_");
-        for (int i = 0; i < ID_SUFFIX_LENGTH; i++) {
-            id.append(ID_ALPHABET.charAt(random.nextInt(ID_ALPHABET.length())));
-        }
-        return id.toString();
     }
 }
