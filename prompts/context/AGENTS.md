@@ -24,7 +24,7 @@
 - New tests are named after the rule they check, e.g. `R2_billingDateKeepsMonthEndAnchor`.
 
 ## Approvals
-- Ask before: changing SPEC.md, editing any existing test, adding a dependency, or deleting files.
+- Ask before: changing SPEC.md, editing any existing test, adding a dependency, editing `pom.xml` or `config/`, or deleting files.
 - Every change goes through a pull request (see the `make-pr` skill). Never push to `main`.
 
 ## Done means

@@ -8,6 +8,7 @@ Every prompt used in the Oct 22 demo, in slide order. Each file says which slide
 | 02 | [02-list-assumptions.md](02-list-assumptions.md) | How to write a spec with the agent | The agent lists what it would have to guess |
 | 03 | [03-write-spec.md](03-write-spec.md) | What does a good spec look like? | Decisions turned into SPEC.md |
 | 04 | [04-review-spec.md](04-review-spec.md) | What does a good spec look like? | A fresh session stress-tests the spec |
+| 04a | [04a-scaffold.md](04a-scaffold.md) | Writing Tests (setup) | The build, coverage and lint set up once |
 | 05 | [05-write-tests.md](05-write-tests.md) | Writing Tests | Tests from the spec, before any code |
 | 06 | [06-implement.md](06-implement.md) | Demo | Implement one operation at a time |
 | 07 | [07-review-pr.md](07-review-pr.md) | Understand and approve the PR | A separate reviewer agent |
