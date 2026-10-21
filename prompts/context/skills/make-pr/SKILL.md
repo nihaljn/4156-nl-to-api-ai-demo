@@ -11,6 +11,6 @@ description: Package a SubTrack change as a branch, commits and a GitHub pull re
 4. **Open the PR** with `gh pr create`. The description has:
    - **What:** the spec sections and rule IDs this implements or changes, and which sections are *not* in this PR (whose tests still fail).
    - **How:** two or three sentences, plus a Mermaid sequence diagram of the main request.
-   - **Tests:** which tests are new (fail-to-pass) and confirmation that existing tests still pass (pass-to-pass).
+   - **Tests:** which existing tests this PR turns from failing to passing (fail-to-pass), and confirmation that tests that already passed still pass (pass-to-pass).
    - **Out of scope:** anything you noticed but didn't change.
 5. **Never** merge your own PR or push to `main`. A reviewer (human or the reviewer agent) approves it.

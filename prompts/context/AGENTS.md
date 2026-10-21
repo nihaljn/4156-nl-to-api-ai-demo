@@ -21,7 +21,8 @@
 
 ## Tests
 - Never edit, delete, or disable a test to make it pass. If a test looks wrong, stop and say which rule it contradicts.
-- New tests are named after the rule they check, e.g. `R2_billingDateKeepsMonthEndAnchor`.
+- Don't write tests unless asked. If the spec has a case with no test, report it instead of adding one.
+- Tests are named after the rule they check, e.g. `R2_billingDateKeepsMonthEndAnchor`.
 
 ## Approvals
 - Ask before: changing SPEC.md, editing any existing test, adding a dependency, editing `pom.xml` or `config/`, or deleting files.

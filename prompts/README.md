@@ -22,7 +22,6 @@ Every prompt used in the Oct 22 demo, in slide order. Each file says which slide
 | File | Kind | Applies |
 |---|---|---|
 | [context/AGENTS.md](context/AGENTS.md) | Rules file | Every session in the repo: conventions, approvals, "must make PRs" |
-| [context/skills/add-endpoint/SKILL.md](context/skills/add-endpoint/SKILL.md) | Skill | Implementing an endpoint, test first |
 | [context/skills/write-tests/SKILL.md](context/skills/write-tests/SKILL.md) | Skill | Writing tests from the spec |
 | [context/skills/run-checks/SKILL.md](context/skills/run-checks/SKILL.md) | Skill | Using Maven and Newman, reading reports |
 | [context/skills/make-pr/SKILL.md](context/skills/make-pr/SKILL.md) | Skill | Branch, commits and PR description |

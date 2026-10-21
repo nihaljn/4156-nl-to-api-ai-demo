@@ -1,16 +1,15 @@
 # 06 — Implement, one operation at a time
 
 **Slide:** Demo
-**Mode:** normal, after `04a-scaffold.md` and `05-write-tests.md`, with the rules file (`context/AGENTS.md`) and the `add-endpoint` and `make-pr` skills loaded.
+**Mode:** normal, after `04a-scaffold.md` and `05-write-tests.md`, with the rules file (`context/AGENTS.md`) and the `make-pr` skill loaded.
 
 ```text
-Implement section 5.1 of SPEC.md (POST /plans) using the
-add-endpoint skill.
+Implement section 5.1 of SPEC.md (POST /plans).
 
-Make the tests for 5.1 pass, including its idempotency and validation
-cases. Don't edit, delete or disable anything under src/test. If a test
-looks wrong, stop and tell me which spec rule it contradicts instead of
-changing it.
+Make the existing tests for 5.1 pass. Write no new tests, and don't edit,
+delete or disable anything under src/test. If a test looks wrong, or the
+spec has a case no test covers, stop and tell me instead of changing or
+adding tests.
 
 Run only this section's tests while you work (./mvnw test -Dtest=...).
 Then run ./mvnw verify. Tests for endpoints I haven't asked for yet
