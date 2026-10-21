@@ -1,5 +1,7 @@
 package edu.columbia.subtrack.domain;
 
+import edu.columbia.subtrack.domain.BillingCalendar.Interval;
+
 /**
  * A subscription plan (SPEC.md section 3).
  *
@@ -12,9 +14,4 @@ package edu.columbia.subtrack.domain;
  */
 public record Plan(String planId, String name, long priceCents, String currency, Interval interval,
         int trialDays) {
-
-    /** How often a plan bills. */
-    public enum Interval {
-        MONTH, YEAR
-    }
 }
