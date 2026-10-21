@@ -31,7 +31,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ApiException.class)
     ResponseEntity<ErrorResponse> handleApi(ApiException e) {
         HttpStatus status = STATUS_BY_CODE.getOrDefault(e.getCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        return ResponseEntity.status(status).body(new ErrorResponse(e.getCode(), e.getMessage(), e.getField()));
+        return ResponseEntity.status(status).body(new ErrorResponse(e.getCode(), e.getMessage(), e.getField(),
+                e.getExistingSubscriptionId()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
