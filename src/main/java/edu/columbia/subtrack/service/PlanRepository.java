@@ -4,6 +4,7 @@ import edu.columbia.subtrack.domain.Plan;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,20 @@ public class PlanRepository {
                 plans.add(plan);
             }
             return !taken;
+        }
+    }
+
+    /**
+     * Finds one of a client's plans.
+     *
+     * @param clientKey the owning client
+     * @param planId the plan ID
+     * @return the plan, or empty if this client has no such plan
+     */
+    public Optional<Plan> find(final String clientKey, final String planId) {
+        final List<Plan> plans = plansByClient.getOrDefault(clientKey, List.of());
+        synchronized (plans) {
+            return plans.stream().filter(p -> p.planId().equals(planId)).findFirst();
         }
     }
 }
