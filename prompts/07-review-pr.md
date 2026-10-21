@@ -7,13 +7,20 @@
 Create a subagent to review the open pull request. Give it only:
 - SPEC.md,
 - the code-review skill,
-- the PR number, so it can read the diff with gh pr diff.
+- the PR number, so it can read the description with gh pr view and the
+  diff with gh pr diff.
 
 Do not give it this conversation, your summary of the change, or any
 write access. It must not edit files. Tell it:
 
 Review the open pull request against SPEC.md using the code-review skill.
 Don't edit any files.
+
+The PR description says which spec sections this PR covers. Judge the
+diff against those sections, the rules they cite, and section 2. Don't
+report sections the description says are not in this PR as missing, but
+do report any claim in the description that the diff doesn't back up,
+and any behavior in the diff outside the stated scope.
 
 Report, in this order:
 1. Spec violations: any behavior that contradicts a rule. Cite the rule
