@@ -6,14 +6,7 @@
 ```text
 From SPEC.md, write tests only. Do not write any implementation code.
 
-Write:
-- one test per rule in section 4 (R1–R8),
-- one parameterized case per row of the worked example,
-- one test per acceptance test in section 7,
-- one test per cell of the cancel state table (4 states × 2 modes),
-- an invariant test that billing dates never drift: for every first
-  billing date in 2024–2028 and k = 1..24, billing date k falls on the
-  first date's day of month, or on the last day of a shorter month.
+Write one test per acceptance test in section 7.
 
 Keep the mapping one to one. Each item above is exactly one test method
 (a parameterized method counts as one, with one case per row or cell).
