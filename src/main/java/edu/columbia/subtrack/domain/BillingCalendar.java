@@ -9,7 +9,7 @@ import java.util.List;
 public final class BillingCalendar {
 
     private final LocalDate startDate;
-    private final LocalDate firstBillingOn;
+    private final LocalDate firstBilling;
     private final Interval interval;
     private final LocalDate endsOn;
 
@@ -24,7 +24,7 @@ public final class BillingCalendar {
     public BillingCalendar(final LocalDate startDate, final int trialDays, final Interval interval,
             final LocalDate endsOn) {
         this.startDate = startDate;
-        this.firstBillingOn = startDate.plusDays(trialDays);
+        this.firstBilling = startDate.plusDays(trialDays);
         this.interval = interval;
         this.endsOn = endsOn;
     }
@@ -54,7 +54,7 @@ public final class BillingCalendar {
      * @return start date plus trial days
      */
     public LocalDate firstBillingOn() {
-        return firstBillingOn;
+        return firstBilling;
     }
 
     /**
@@ -87,7 +87,7 @@ public final class BillingCalendar {
         if (endsOn != null && !day.isBefore(endsOn)) {
             return Status.CANCELED;
         }
-        return day.isBefore(firstBillingOn) ? Status.TRIALING : Status.ACTIVE;
+        return day.isBefore(firstBilling) ? Status.TRIALING : Status.ACTIVE;
     }
 
     /**
@@ -110,8 +110,8 @@ public final class BillingCalendar {
         if (status(day) == Status.CANCELED) {
             return null;
         }
-        if (day.isBefore(firstBillingOn)) {
-            return new Period(startDate, firstBillingOn);
+        if (day.isBefore(firstBilling)) {
+            return new Period(startDate, firstBilling);
         }
         final long k = periodIndex(day);
         return new Period(billing(k), billing(k + 1));
@@ -124,13 +124,13 @@ public final class BillingCalendar {
      * @return the earliest counting billing date after the day, or null
      */
     public LocalDate nextBillingOn(final LocalDate day) {
-        final long k = day.isBefore(firstBillingOn) ? 0 : periodIndex(day) + 1;
+        final long k = day.isBefore(firstBilling) ? 0 : periodIndex(day) + 1;
         final LocalDate next = billing(k);
         return counts(next) ? next : null;
     }
 
     private LocalDate billing(final long k) {
-        return interval == Interval.MONTH ? firstBillingOn.plusMonths(k) : firstBillingOn.plusYears(k);
+        return interval == Interval.MONTH ? firstBilling.plusMonths(k) : firstBilling.plusYears(k);
     }
 
     private boolean counts(final LocalDate billingDate) {
@@ -140,7 +140,7 @@ public final class BillingCalendar {
     /** The largest k with billing(k) on or before the day; the day must not precede firstBillingOn. */
     private long periodIndex(final LocalDate day) {
         final ChronoUnit unit = interval == Interval.MONTH ? ChronoUnit.MONTHS : ChronoUnit.YEARS;
-        long k = unit.between(firstBillingOn, day);
+        long k = unit.between(firstBilling, day);
         while (!billing(k + 1).isAfter(day)) {
             k++;
         }
