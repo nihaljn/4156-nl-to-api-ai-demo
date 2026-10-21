@@ -22,7 +22,7 @@ public class ApiExceptionHandler {
      */
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ErrorBody> handleApi(final ApiException ex) {
-        return respond(ex.getCode(), ex.getMessage(), ex.getField());
+        return respond(ex.getCode(), ex.getMessage(), ex.getField(), ex.getExistingSubscriptionId());
     }
 
     /**
@@ -33,7 +33,7 @@ public class ApiExceptionHandler {
      */
     @ExceptionHandler({NoResourceFoundException.class, HttpRequestMethodNotSupportedException.class})
     public ResponseEntity<ErrorBody> handleNoEndpoint(final Exception ex) {
-        return respond(ErrorCode.NOT_FOUND, "No endpoint matches this request", null);
+        return respond(ErrorCode.NOT_FOUND, "No endpoint matches this request", null, null);
     }
 
     /**
@@ -45,11 +45,12 @@ public class ApiExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorBody> handleUnexpected(final Exception ex) {
         LOG.error("Unexpected error", ex);
-        return respond(ErrorCode.INTERNAL_ERROR, "An unexpected error occurred", null);
+        return respond(ErrorCode.INTERNAL_ERROR, "An unexpected error occurred", null, null);
     }
 
     private static ResponseEntity<ErrorBody> respond(final ErrorCode code, final String message,
-            final String field) {
-        return ResponseEntity.status(code.httpStatus()).body(new ErrorBody(code.name(), message, field));
+            final String field, final String existingSubscriptionId) {
+        return ResponseEntity.status(code.httpStatus())
+            .body(new ErrorBody(code.name(), message, field, existingSubscriptionId));
     }
 }

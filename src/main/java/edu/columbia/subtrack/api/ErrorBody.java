@@ -8,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * @param error the error code name
  * @param message a client-safe description
  * @param field the field to blame, omitted when null
+ * @param existingSubscriptionId the blocking subscription for ALREADY_SUBSCRIBED, omitted otherwise
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record ErrorBody(String error, String message, String field) {
+public record ErrorBody(String error, String message, String field, String existingSubscriptionId) {
 }

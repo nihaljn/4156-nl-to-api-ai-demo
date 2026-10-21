@@ -37,7 +37,7 @@ public class ClientKeyFilter extends OncePerRequestFilter {
             response.setStatus(ErrorCode.UNAUTHENTICATED.httpStatus().value());
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             mapper.writeValue(response.getOutputStream(), new ErrorBody(ErrorCode.UNAUTHENTICATED.name(),
-                HEADER + " header is required", null));
+                HEADER + " header is required", null, null));
         } else {
             chain.doFilter(request, response);
         }
