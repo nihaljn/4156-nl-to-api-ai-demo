@@ -1,0 +1,47 @@
+{
+  "info": {
+    "name": "SubTrack",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "clientKey", "value": "postman-client" }
+  ],
+  "item": [
+    {
+      "name": "5.1 POST /plans",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Client-Key", "value": "{{clientKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/plans",
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"name\": \"Pro monthly {{$timestamp}}\", \"priceCents\": 999, \"currency\": \"USD\", \"interval\": \"MONTH\", \"trialDays\": 7 }"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('201 Created', () => pm.response.to.have.status(201));",
+              "const plan = pm.response.json();",
+              "pm.test('plan has generated id and echoed fields', () => {",
+              "  pm.expect(plan.planId).to.match(/^pln_[a-z0-9]{10}$/);",
+              "  pm.expect(plan.priceCents).to.eql(999);",
+              "  pm.expect(plan.currency).to.eql('USD');",
+              "  pm.expect(plan.interval).to.eql('MONTH');",
+              "  pm.expect(plan.trialDays).to.eql(7);",
+              "});",
+              "pm.collectionVariables.set('planId', plan.planId);"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
